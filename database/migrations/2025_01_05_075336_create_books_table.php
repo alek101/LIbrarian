@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('isbn')->unique();
             $table->text('description')->nullable();
+            $table->foreignIdFor(\App\Models\User::class)->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
