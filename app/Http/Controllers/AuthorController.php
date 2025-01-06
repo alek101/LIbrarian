@@ -31,10 +31,20 @@ class AuthorController extends Controller
      */
     public function store(StoreAuthorRequest $request)
     {
-        $author = Author::create($request->validated());
-        $author->user_id = auth()->id;
+        $data = $request->validated();
+
+        if($data['image'] && $data['image']->isValid()) {
+            $data['picture'] = $data['image']->store('images');
+        } else {
+            $data['picture'] = null;
+        }
+
+        $data['user_id'] = auth()->user()->id;
+
+        $author = Author::create($data);
         $author->save();
 
+        return redirect()->route('authors.index');
     }
 
     /**

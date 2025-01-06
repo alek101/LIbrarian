@@ -24,7 +24,7 @@ class StoreAuthorRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'surname' => ['required', 'string', 'max:255'],
-            'picture' => ['image'],
+            'image' => ['image'],
         ];
     }
 }

@@ -10,7 +10,7 @@ class Author extends Model
     /** @use HasFactory<\Database\Factories\AuthorFactory> */
     use HasFactory;
 
-    protected $guarded = [];
+    protected $fillable = ['name', 'surname', 'picture', 'user_id'];
 
     public function books(): \Illuminate\Database\Eloquent\Relations\HasMany
     {

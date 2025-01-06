@@ -23,3 +23,9 @@ require __DIR__.'/auth.php';
 
 Route::resource('authors', AuthorController::class);
 Route::resource('books', BookController::class);
+
+// Route::get('/authors/create', [AuthorController::class, 'create'])->name('authors.create');
+Route::get('/debug-routes', function () {
+    return response()->json(Route::getRoutes()->getRoutesByName());
+});
+
