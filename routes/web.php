@@ -23,6 +23,7 @@ require __DIR__.'/auth.php';
 
 Route::resource('authors', AuthorController::class);
 Route::resource('books', BookController::class);
+Route::post('/books/{author_id}', [BookController::class, 'store'])->name('books.store');
 
 // Route::get('/authors/create', [AuthorController::class, 'create'])->name('authors.create');
 Route::get('/debug-routes', function () {
