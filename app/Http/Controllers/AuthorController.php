@@ -13,7 +13,7 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        $authors = Author::with('books')->get();
+        $authors = Author::paginate(1);
 
         return view('authors.index', compact('authors'));
     }
@@ -33,7 +33,7 @@ class AuthorController extends Controller
     {
         $data = $request->validated();
 
-        if($data['image'] && $data['image']->isValid()) {
+        if(isset($data['image']) && $data['image']->isValid()) {
             $data['picture'] = $data['image']->store('images');
         } else {
             $data['picture'] = null;
@@ -52,6 +52,7 @@ class AuthorController extends Controller
      */
     public function show(Author $author)
     {
+        $author->load('books');
         return view('authors.show', compact('author'));
     }
 
@@ -60,6 +61,7 @@ class AuthorController extends Controller
      */
     public function edit(Author $author)
     {
+        $author->load('books');
         return view('authors.edit', compact('author'));
     }
 
@@ -69,6 +71,7 @@ class AuthorController extends Controller
     public function update(UpdateAuthorRequest $request, Author $author)
     {
         $author->update($request->validated());
+        return redirect('/authors');
     }
 
     /**
@@ -76,6 +79,7 @@ class AuthorController extends Controller
      */
     public function destroy(Author $author)
     {
-        $author->softDelete();
+        $author->delete();
+        return redirect()->route('authors.index');
     }
 }

@@ -6,6 +6,8 @@ use App\Models\Book;
 use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 
+use function PHPUnit\Framework\returnSelf;
+
 class BookController extends Controller
 {
     /**
@@ -64,6 +66,7 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        $book->softDelete();
+        $book->delete();
+        return redirect()->route('authors.index');
     }
 }
