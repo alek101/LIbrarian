@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateBookRequest extends FormRequest
 {
@@ -21,11 +22,13 @@ class UpdateBookRequest extends FormRequest
      */
     public function rules(): array
     {
+        $bookId = $this->route('book'); // Retrieve the 'book' parameter from the route
+        
         return [
             'title' => ['required', 'string', 'max:255'],
             'description' => ['string'],
             'author_id' => ['required', 'exists:authors,id'],
-            'isbn' => ['required', 'string', 'max:255', 'unique:books,isbn'],
+            'isbn' => ['required', 'string', 'max:255',  Rule::unique('books', 'isbn')->ignore($bookId)],
         ];
     }
 }

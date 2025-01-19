@@ -34,7 +34,7 @@ class BookController extends Controller
         $data = $request->validated();
         $data['user_id'] = auth()->user()->id;
         $book = Book::create($data);
-        return redirect()->route('authors.index');
+        return redirect()->route('authors.edit',['author' => $book->author_id]);
     }
 
     /**
@@ -59,6 +59,7 @@ class BookController extends Controller
     public function update(UpdateBookRequest $request, Book $book)
     {
         $book->update($request->validated());
+        return redirect()->route('authors.edit',['author' => $book->author_id]);
     }
 
     /**
@@ -67,6 +68,6 @@ class BookController extends Controller
     public function destroy(Book $book)
     {
         $book->delete();
-        return redirect()->route('authors.index');
+        return redirect()->route('authors.edit',['author' => $book->author_id]);
     }
 }
