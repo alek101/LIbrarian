@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Book;
 use App\Models\User;
+use Database\Factories\BookFactory;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -22,5 +24,7 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password'),
             'role' => 'librerian',
         ]);
+
+        Book::factory(100)->create();
     }
 }
